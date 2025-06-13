@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alxer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+        color: white;
+      }
+      header {
+        background-color: #1a1a1a;
+        padding: 1rem;
+        text-align: center;
+      }
+      header h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2.5rem;
+        margin: 0;
+        color: #fca311;
+      }
+      nav {
+        background: #111;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 0.8rem;
+      }
+      nav button {
+        background: none;
+        border: none;
+        color: #fca311;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      nav button.active {
+        text-decoration: underline;
+      }
+      section {
+        padding: 3rem 2rem;
+        max-width: 900px;
+        margin: auto;
+        display: none;
+      }
+      section.active {
+        display: block;
+      }
+      section.hero {
+        padding: 4rem 2rem;
+        text-align: center;
+        background: url('https://images.unsplash.com/photo-1600490054336-27d4c6a08226') no-repeat center center/cover;
+      }
+      .hero h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #ffffff;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      }
+      .hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: auto;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+      }
+      section h3 {
+        color: #fca311;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2rem;
+      }
+      .team {
+        background-color: #14213d;
+      }
+      .language {
+        background-color: #1f4068;
+      }
+      .donate {
+        text-align: center;
+        margin-top: 2rem;
+        background-color: #0d1b2a;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+      .donate button {
+        background-color: #fca311;
+        border: none;
+        color: black;
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 8px;
+      }
+      .language-selector {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      .language-selector button {
+        margin: 0 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .language-selector button.active {
+        background-color: #fca311;
+        color: black;
+      }
+      #progressBarContainer {
+        width: 100%;
+        background-color: #333;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 1rem;
+      }
+      #progressBar {
+        height: 24px;
+        width: 0%;
+        background-color: #fca311;
+        color: black;
+        font-weight: bold;
+        text-align: center;
+        line-height: 24px;
+        transition: width 0.5s ease-in-out;
+      }
+      .team-members {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+      .team-member {
+        background-color: #203a43;
+        border-radius: 8px;
+        padding: 1rem;
+        width: 180px;
+        text-align: center;
+      }
+      .team-member img {
+        width: 100%;
+        border-radius: 50%;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Alxer</h1>
+    </header>
+
+    <nav>
+      <button class="active" onclick="showSection('about')" data-i18n="aboutNav">About</button>
+      <button onclick="showSection('mission')" data-i18n="missionNav">Mission</button>
+      <button onclick="showSection('team')" data-i18n="teamNav">Team</button>
+      <button onclick="showSection('language')" data-i18n="languageNav">Languages</button>
+      <button onclick="showSection('donate')" data-i18n="donateNav">Donate</button>
+    </nav>
+
+    <section class="hero active" id="about">
+      <h2 data-i18n="aboutTitle">About Us</h2>
+      <p data-i18n="aboutText">
+        Alxer is more than just a club—it's a movement. We believe every child, no matter where, deserves safe and inspiring basketball spaces. We are a semi-nonprofit initiative that combines sport, hope, and community impact.
+      </p>
+    </section>
+
+    <section id="mission">
+      <h3 data-i18n="missionTitle">Our Mission</h3>
+      <p data-i18n="missionText">
+        Our goal is simple: Build basketball courts for schools in Africa that currently have none. Through donations, multilingual outreach, and a global network of supporters, Alxer empowers youth, one hoop at a time.
+      </p>
+    </section>
+
+    <section class="team" id="team">
+      <h3 data-i18n="teamTitle">Our Team</h3>
+      <p data-i18n="teamText">
+        Our team is made up of passionate players, coaches, and volunteers worldwide who share a common dream—to bring hope through basketball. We work together to build courts that become homes for talent and growth.
+      </p>
+      <div class="team-members" id="teamPhotos"></div>
+    </section>
+
+    <section class="language" id="language">
+      <h3 data-i18n="languageTitle">Languages</h3>
+      <div class="language-selector">
+        <button onclick="setLanguage('en')" id="btn-en">English</button>
+        <button onclick="setLanguage('zh')" id="btn-zh">中文</button>
+        <button onclick="setLanguage('fr')" id="btn-fr">Français</button>
+        <button onclick="setLanguage('sw')" id="btn-sw">Swahili</button>
+        <button onclick="setLanguage('es')" id="btn-es">Español</button>
+      </div>
+      <p data-i18n="languageText">
+        Alxer supports multiple languages to connect with supporters globally. Stay tuned for updates on available translations.
+      </p>
+    </section>
+
+    <section class="donate" id="donate">
+      <h3 data-i18n="donateTitle">Make a Difference</h3>
+      <p data-i18n="donateText">Support us by donating to help build more courts for kids in Africa.</p>
+      <button onclick="window.location.href='https://donation.example.com';" data-i18n="donateButton">Donate Now</button>
+      <div id="progressBarContainer">
+        <div id="progressBar">0%</div>
+      </div>
+      <p id="donationAmount" style="margin-top: 0.5rem;">$0 raised of $100,000 goal</p>
+    </section>
+
+    <footer>
+      &copy; 2025 Alxer by Andy Li. All rights reserved.
+    </footer>
+
+    <script>
+      // 语言文本库
+      const translations = {
+        en: {
+          aboutNav: "About",
+          missionNav: "Mission",
+          teamNav: "Team",
+          languageNav: "Languages",
+          donateNav: "Donate",
+          aboutTitle: "About Us",
+          aboutText:
+            "Alxer is more than just a club—it's a movement. We believe every child, no matter where, deserves safe and inspiring basketball spaces. We are a semi-nonprofit initiative that combines sport, hope, and community impact.",
+          missionTitle: "Our Mission",
+          missionText:
+            "Our goal is simple: Build basketball courts for schools in Africa that currently have none. Through donations, multilingual outreach, and a global network of supporters, Alxer empowers youth, one hoop at a time.",
+          teamTitle: "Our Team",
+          teamText:
+            "Our team is made up of passionate players, coaches, and volunteers worldwide who share a common dream—to bring hope through basketball. We work together to build courts that become homes for talent and growth.",
+          languageTitle: "Languages",
+          languageText:
+            "Alxer supports multiple languages to connect with supporters globally. Stay tuned for updates on available translations.",
+          donateTitle: "Make a Difference",
+          donateText: "Support us by donating to help build more courts for kids in Africa.",
+          donateButton: "Donate Now",
+        },
+        zh: {
+          aboutNav: "关于我们",
+          missionNav: "使命",
+          teamNav: "团队",
+          languageNav: "语言",
+          donateNav: "捐赠",
+          aboutTitle: "关于我们",
+          aboutText:
+            "Alxer 不只是一个俱乐部——它是一场运动。我们相信每个孩子，无论身处何地，都应拥有安全且激励人心的篮球场地。我们是一个半营利性质的项目，结合了体育、希望和社区影响力。",
+          missionTitle: "我们的使命",
+          missionText:
+            "我们的目标很简单：为非洲没有篮球场的学校建设篮球场。通过捐赠、多语言宣传和全球支持网络，Alxer 助力青少年，一次一个篮球架。",
+          teamTitle: "我们的团队",
+          teamText:
+            "我们的团队由来自世界各地充满热情的球员、教练和志愿者组成，他们有一个共同梦想——通过篮球带来希望。我们携手建设篮球场，成为人才和成长的摇篮。",
+          languageTitle: "语言",
+          languageText:
+            "Alxer 支持多种语言，以连接全球支持者。敬请期待更多翻译版本。",
+          donateTitle: "行动起来",
+          donateText: "支持我们，为非洲的孩子们建设更多篮球场。",
+          donateButton: "立即捐赠",
+        },
+        fr: {
+          aboutNav: "À propos",
+          missionNav: "Mission",
+          teamNav: "Équipe",
+          languageNav: "Langues",
+          donateNav: "Faire un don",
+          aboutTitle: "À propos de nous",
+          aboutText:
+            "Alxer est plus qu'un club — c'est un mouvement. Nous croyons que chaque enfant, où qu'il soit, mérite des espaces de basket sûrs et inspirants. Nous sommes une initiative semi-caritative qui allie sport, espoir et impact communautaire.",
+          missionTitle: "Notre mission",
+          missionText:
+            "Notre objectif est simple : construire des terrains de basket pour les écoles en Afrique qui n'en ont pas actuellement. Grâce aux dons, à la sensibilisation multilingue et à un réseau mondial de supporters, Alxer donne du pouvoir aux jeunes, un panier à la fois.",
+          teamTitle: "Notre équipe",
+          teamText:
+            "Notre équipe est composée de joueurs, entraîneurs et bénévoles passionnés du monde entier qui partagent un rêve commun : apporter de l'espoir par le basket. Nous travaillons ensemble pour construire des terrains qui deviennent des foyers de talents et de croissance.",
+          languageTitle: "Langues",
+          languageText:
+            "Alxer prend en charge plusieurs langues pour connecter les supporters du monde entier. Restez à l'écoute pour les mises à jour des traductions disponibles.",
+          donateTitle: "Faites la différence",
+          donateText:
+            "Soutenez-nous en faisant un don pour aider à construire plus de terrains pour les enfants en Afrique.",
+          donateButton: "Faire un don",
+        },
+        sw: {
+          aboutNav: "Kuhusu",
+          missionNav: "Dhamira",
+          teamNav: "Timu",
+          languageNav: "Lugha",
+          donateNav: "Toa",
+          aboutTitle: "Kuhusu Sisi",
+          aboutText:
+            "Alxer ni zaidi ya klabu—ni harakati. Tunaamini kila mtoto, popote alipo, anastahili maeneo salama na yenye msukumo wa mpira wa kikapu. Sisi ni mpango wa nusu-siyo-fanikiwa unaochanganya michezo, matumaini, na athari za jamii.",
+          missionTitle: "Dhamira Yetu",
+          missionText:
+            "Lengo letu ni rahisi: Kujenga viwanja vya mpira wa kikapu kwa shule Afrika ambazo hazina viwanja. Kupitia michango, mawasiliano ya lugha nyingi, na mtandao wa wafuasi duniani kote, Alxer inawawezesha vijana, mpira mmoja kwa wakati.",
+          teamTitle: "Timu Yetu",
+          teamText:
+            "Timu yetu inajumuisha wachezaji wenye shauku, makocha, na wajitoleaji kutoka duniani kote ambao wana ndoto moja—kuleta matumaini kupitia mpira wa kikapu. Tunashirikiana kujenga viwanja vinavyowafanya watoto kuwa na vipaji na kukua.",
+          languageTitle: "Lugha",
+          languageText:
+            "Alxer inaunga mkono lugha nyingi kuungana na wafuasi duniani kote. Endelea kufuatilia kwa masasisho ya tafsiri zinazopatikana.",
+          donateTitle: "Fanya Tofauti",
+          donateText:
+            "Tusaidie kwa kuchangia kujenga viwanja zaidi kwa watoto Afrika.",
+          donateButton: "Toa Sasa",
+        },
+        es: {
+          aboutNav: "Acerca de",
+          missionNav: "Misión",
+          teamNav: "Equipo",
+          languageNav: "Idiomas",
+          donateNav: "Donar",
+          aboutTitle: "Acerca de Nosotros",
+          aboutText:
+            "Alxer es más que un club: es un movimiento. Creemos que cada niño, sin importar dónde esté, merece espacios seguros e inspiradores para el baloncesto. Somos una iniciativa semi-no lucrativa que combina deporte, esperanza e impacto comunitario.",
+          missionTitle: "Nuestra Misión",
+          missionText:
+            "Nuestro objetivo es simple: construir canchas de baloncesto para escuelas en África que actualmente no tienen ninguna. A través de donaciones, alcance multilingüe y una red global de seguidores, Alxer empodera a los jóvenes, un aro a la vez.",
+          teamTitle: "Nuestro Equipo",
+          teamText:
+            "Nuestro equipo está compuesto por jugadores apasionados, entrenadores y voluntarios de todo el mundo que comparten un sueño común: traer esperanza a través del baloncesto. Trabajamos juntos para construir canchas que se convierten en hogares de talento y crecimiento.",
+          languageTitle: "Idiomas",
+          languageText:
+            "Alxer apoya múltiples idiomas para conectar con seguidores a nivel mundial. Esté atento a las actualizaciones sobre traducciones disponibles.",
+          donateTitle: "Marca la Diferencia",
+          donateText:
+            "Apóyanos donando para ayudar a construir más canchas para niños en África.",
+          donateButton: "Donar Ahora",
+        }
+      };
+
+      let currentLang = 'en';
+
+      // 切换显示区块
+      function showSection(id) {
+        document.querySelectorAll('section').forEach(sec => {
+          sec.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+
+        // nav按钮active切换
+        document.querySelectorAll('nav button').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('onclick').includes(id));
+        });
+      }
+
+      // 语言切换按钮状态同步
+      function setLanguage(lang) {
+        currentLang = lang;
+        // 语言按钮active状态
+        document.querySelectorAll('.language-selector button').forEach(btn => {
+          btn.classList.toggle('active', btn.id === 'btn-' + lang);
+        });
+
+        // 更新所有有 data-i18n 属性的元素内容
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (translations[lang] && translations[lang][key]) {
+            el.textContent = translations[lang][key];
+          }
+        });
+      }
+
+      // 初始化语言
+      setLanguage(currentLang);
+
+      // 球员/志愿者照片数据
+      const teamMembers = [
+        { name: 'Andy Li', role: 'Founder', img: 'https://randomuser.me/api/portraits/men/32.jpg' },
+        { name: 'Sara Johnson', role: 'Coach', img: 'https://randomuser.me/api/portraits/women/44.jpg' },
+        { name: 'David Kim', role: 'Volunteer', img: 'https://randomuser.me/api/portraits/men/85.jpg' },
+        { name: 'Lina Mbogo', role: 'Community Manager', img: 'https://randomuser.me/api/portraits/women/68.jpg' }
+      ];
+
+      function loadTeamPhotos() {
+        const container = document.getElementById('teamPhotos');
+        container.innerHTML = '';
+        teamMembers.forEach(member => {
+          const div = document.createElement('div');
+          div.className = 'team-member';
+          div.innerHTML = `
+            <img src="${member.img}" alt="${member.name} - ${member.role}" />
+            <strong>${member.name}</strong><br />
+            <em>${member.role}</em>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      loadTeamPhotos();
+
+      // 模拟捐赠金额动态更新
+      let raisedAmount = 0;
+      const goal = 100000;
+
+      function updateProgress() {
+        if (raisedAmount < goal) {
+          raisedAmount += Math.floor(Math.random() * 5000);
+          if (raisedAmount > goal) raisedAmount = goal;
+          const percent = Math.floor((raisedAmount / goal) * 100);
+          const bar = document.getElementById('progressBar');
+          bar.style.width = percent + '%';
+          bar.textContent = percent + '%';
+
+          document.getElementById('donationAmount').textContent = `$${raisedAmount.toLocaleString()} raised of $${goal.toLocaleString()} goal`;
+        }
+      }
+
+      setInterval(updateProgress, 3000);
+    </script>
+  </body>
+</html>
